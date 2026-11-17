@@ -1,0 +1,32 @@
+name: Run TalkinChat Bot (Temporary)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run bot
+        env:
+          TALKINCHAT_USERNAME: ${{ secrets.TALKINCHAT_USERNAME }}
+          TALKINCHAT_PASSWORD: ${{ secrets.TALKINCHAT_PASSWORD }}
+          TALKINCHAT_ROOM: ${{ secrets.TALKINCHAT_ROOM }}
+          TALKINCHAT_STATE_DIR: /tmp/talkinchat-state
+        run: |
+          mkdir -p /tmp/talkinchat-state
+          python bot.py
