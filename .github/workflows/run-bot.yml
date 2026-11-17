@@ -26,6 +26,7 @@ jobs:
           TALKINCHAT_USERNAME: ${{ secrets.TALKINCHAT_USERNAME }}
           TALKINCHAT_PASSWORD: ${{ secrets.TALKINCHAT_PASSWORD }}
           TALKINCHAT_ROOM: ${{ secrets.TALKINCHAT_ROOM }}
+          TALKINCHAT_OWNER: ${{ secrets.TALKINCHAT_OWNER }}
           TALKINCHAT_STATE_DIR: /tmp/talkinchat-state
         run: |
           mkdir -p /tmp/talkinchat-state
