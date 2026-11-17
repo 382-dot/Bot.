@@ -223,11 +223,16 @@ class TalkinChatBot:
         return await self.transport.reply(context.room, text)
 
     def refresh_access(self):
+        # --- التعديل هنا: إجبار البوت على منح المالك (cid) رتبة Creator ---
+        creator_aliases = self.store.get("creator_aliases", [])
+        if self.config.owner not in creator_aliases:
+            creator_aliases.append(self.config.owner)
+            
         self.access = AccessControl(
             self.config.owner,
             self.store.get("admins", []),
             self.store.get("room_authorities", {}),
-            self.store.get("creator_aliases", []),
+            creator_aliases,
         )
 
     def mark_ready(self):
